@@ -1,0 +1,25 @@
+name: knowledgeops-test
+services:
+  db:
+    image: postgres:18-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
+    environment:
+      POSTGRES_DB: knowledgeops_test
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/configure_tests.py first}
+      OWNER_PASSWORD: ${OWNER_PASSWORD:?Required}
+      APP_PASSWORD: ${APP_PASSWORD:?Required}
+    ports: ["127.0.0.1:${KO_TEST_PORT:-55446}:5432"]
+    volumes:
+      - test-db:/var/lib/postgresql
+      - ./operations/init-test-db.sh:/docker-entrypoint-initdb.d/10-test-roles.sh:ro
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres -d knowledgeops_test]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    mem_limit: 256m
+    pids_limit: 96
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "2"}
+volumes:
+  test-db:
