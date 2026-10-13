@@ -6,7 +6,7 @@ Version **0.2.1**. The default application is a self-hostable deterministic demo
 
 ## Run locally
 
-Install Docker Engine with Compose v2. Also install Python 3.12+ for the configuration helper. Use the Docker context that runs your engine; do not change another application's context or configuration.
+Install [Docker Desktop or Docker Engine with the Compose plugin](https://docs.docker.com/get-started/get-docker/) and Git, then start the Docker engine. Also install Python 3.12+ for the configuration helper. Check that `docker info` and `docker compose version` succeed. Commands use a POSIX shell (macOS, Linux or WSL2 on Windows). If you use a named Docker context, pass `docker --context NAME compose ...` consistently. After cloning, run the remaining commands from the repository root.
 
 ```sh
 git clone https://github.com/prasanthp01/knowledgeops.git
@@ -15,9 +15,28 @@ python3 scripts/configure_compose.py
 docker compose --env-file .env.compose up --build -d --wait
 ```
 
-Open **http://127.0.0.1:8045/projects/knowledgeops**. The default stack publishes only a loopback port. Generated credentials are ignored by Git; keep them private. Configuration helpers preserve existing files. Stop with `docker compose stop` (include `--env-file .env.compose` for KnowledgeOps); retain volumes and secrets to resume later. See [troubleshooting](docs/TROUBLESHOOTING.md).
+Open **http://127.0.0.1:8045/projects/knowledgeops**. The default stack publishes only a loopback port. Generated credentials are ignored by Git; keep them private. Use `--env-file .env.compose` on every Compose command. Keep that file with its database volume; changing only the passwords will not update an existing database. The helper refuses to overwrite an existing configuration file. See [troubleshooting](docs/TROUBLESHOOTING.md).
 
 ![Project demonstration](docs/images/demo.png)
+
+### Check and restart
+
+```sh
+docker compose --env-file .env.compose ps
+curl --fail --silent --show-error http://127.0.0.1:8045/api/projects/knowledgeops/ready
+docker compose --env-file .env.compose stop
+docker compose --env-file .env.compose up -d --wait
+```
+
+Readiness must return HTTP 200. For startup failures, inspect `docker compose --env-file .env.compose logs --tail=80 api worker`. Reload the browser after restarting. Use `stop` to pause; `down` removes this Compose project's containers and network but retains its named volume. Do not use `down -v` when you want to keep your data.
+
+For an occupied port or a second checkout, use a separate Compose project and matching port/origin:
+
+```sh
+KO_HOST_PORT=8046 KO_PUBLIC_ORIGIN=http://127.0.0.1:8046 docker compose --env-file .env.compose -p knowledgeops-second up --build -d --wait
+```
+
+Open `http://127.0.0.1:8046/projects/knowledgeops`. Keep the same environment overrides and `-p knowledgeops-second` on subsequent Compose commands; otherwise you will address the default instance. [Compose project names](https://docs.docker.com/compose/how-tos/project-name/) isolate containers and volumes between checkouts.
 
 ## Try it
 
@@ -42,18 +61,20 @@ For an internet-facing deployment, follow [deployment requirements](docs/DEPLOYM
 
 ## Verify and contribute
 
-Python verification uses Python 3.12 and `uv`. The lockfile pins the resolved dependencies.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) for source verification. The following commands select Python 3.12 and install the locked development dependencies. Run them from the repository root.
 
 ```sh
 uv sync --frozen --python 3.12
+uv run python scripts/configure_tests.py
+docker compose --env-file .env.test -f compose.test.yaml up -d --wait
 uv run ruff check knowledgeops tests scripts migrations
 uv run ruff format --check knowledgeops tests scripts migrations
 uv run mypy knowledgeops
-# Configure a disposable *_test database; see CONTRIBUTING.md.
-uv run pytest -q
+uv run --env-file .env.test pytest -q
+docker compose --env-file .env.test -f compose.test.yaml stop
 ```
 
-Database tests require disposable databases and refuse ordinary application databases. Never point tests, load tools or recovery drills at a live deployment. The [release report](docs/RELEASE_READINESS.md) records current test results and remaining limits. Hosted CI repeats the relevant checks on pushes and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for the test environment and review process.
+The test stack has a separate Compose project and volume, binds PostgreSQL only to `127.0.0.1:55446`, and generates its own owner/runtime credentials in ignored `.env.test`. Tests migrate and seed `knowledgeops_test` and refuse ordinary application databases. Keep `.env.test` with its volume for repeat runs; the helper preserves existing configuration. To choose a different port on first setup, use `uv run python scripts/configure_tests.py --port 55447`. Never point tests, load tools or recovery drills at a live deployment. The [release report](docs/RELEASE_READINESS.md) records current test results and remaining limits. Hosted CI repeats the relevant checks on pushes and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for the test environment and review process.
 
 ## Performance and cost
 
