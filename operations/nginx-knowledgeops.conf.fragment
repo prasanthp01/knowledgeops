@@ -1,0 +1,181 @@
+# BEGIN KnowledgeOps http limits
+limit_req_zone $binary_remote_addr zone=knowledgeops_api:1m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=knowledgeops_session:1m rate=10r/m;
+limit_conn_zone $binary_remote_addr zone=knowledgeops_connections:1m;
+# END KnowledgeOps http limits
+
+# BEGIN KnowledgeOps project routes
+    location = /api/projects/knowledgeops/session {
+        client_max_body_size 16k;
+        client_body_timeout 5s;
+        limit_req zone=knowledgeops_session burst=5 nodelay;
+        limit_conn knowledgeops_connections 8;
+        limit_conn_status 429;
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        set $knowledgeops_upstream http://knowledgeops-api:8044;
+        proxy_pass $knowledgeops_upstream$request_uri;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header X-Real-IP "";
+        proxy_set_header Forwarded "";
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 45s;
+        proxy_send_timeout 15s;
+        proxy_buffering off;
+        proxy_cache off;
+        access_log off;
+        proxy_hide_header Content-Security-Policy;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header Permissions-Policy;
+        proxy_hide_header Strict-Transport-Security;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy no-referrer always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    }
+    location ^~ /api/projects/knowledgeops/ {
+        client_max_body_size 16k;
+        client_body_timeout 5s;
+        limit_req zone=knowledgeops_api burst=30 nodelay;
+        limit_conn knowledgeops_connections 8;
+        limit_conn_status 429;
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        set $knowledgeops_upstream http://knowledgeops-api:8044;
+        proxy_pass $knowledgeops_upstream$request_uri;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header X-Real-IP "";
+        proxy_set_header Forwarded "";
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 45s;
+        proxy_send_timeout 15s;
+        proxy_buffering off;
+        proxy_cache off;
+        access_log off;
+        proxy_hide_header Content-Security-Policy;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header Permissions-Policy;
+        proxy_hide_header Strict-Transport-Security;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy no-referrer always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    }
+    location = /projects/knowledgeops {
+        if ($request_method !~ ^(GET|HEAD)$) { return 405; }
+        client_max_body_size 16k;
+        client_body_timeout 5s;
+        limit_req zone=knowledgeops_api burst=30 nodelay;
+        limit_conn knowledgeops_connections 8;
+        limit_conn_status 429;
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        set $knowledgeops_upstream http://knowledgeops-api:8044;
+        proxy_pass $knowledgeops_upstream$request_uri;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header X-Real-IP "";
+        proxy_set_header Forwarded "";
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 45s;
+        proxy_send_timeout 15s;
+        proxy_buffering off;
+        proxy_cache off;
+        access_log off;
+        proxy_hide_header Content-Security-Policy;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header Permissions-Policy;
+        proxy_hide_header Strict-Transport-Security;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy no-referrer always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    }
+    location ^~ /projects/knowledgeops/ {
+        if ($request_method !~ ^(GET|HEAD)$) { return 405; }
+        client_max_body_size 16k;
+        client_body_timeout 5s;
+        limit_req zone=knowledgeops_api burst=30 nodelay;
+        limit_conn knowledgeops_connections 8;
+        limit_conn_status 429;
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        set $knowledgeops_upstream http://knowledgeops-api:8044;
+        proxy_pass $knowledgeops_upstream$request_uri;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header X-Real-IP "";
+        proxy_set_header Forwarded "";
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 45s;
+        proxy_send_timeout 15s;
+        proxy_buffering off;
+        proxy_cache off;
+        access_log off;
+        proxy_hide_header Content-Security-Policy;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header Permissions-Policy;
+        proxy_hide_header Strict-Transport-Security;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy no-referrer always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    }
+    location = /evidence/knowledgeops.json {
+        if ($request_method !~ ^(GET|HEAD)$) { return 405; }
+        client_max_body_size 16k;
+        client_body_timeout 5s;
+        limit_req zone=knowledgeops_api burst=30 nodelay;
+        limit_conn knowledgeops_connections 8;
+        limit_conn_status 429;
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        set $knowledgeops_upstream http://knowledgeops-api:8044;
+        proxy_pass $knowledgeops_upstream/projects/knowledgeops/evidence.json;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For "";
+        proxy_set_header X-Real-IP "";
+        proxy_set_header Forwarded "";
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 45s;
+        proxy_send_timeout 15s;
+        proxy_buffering off;
+        proxy_cache off;
+        access_log off;
+        proxy_hide_header Content-Security-Policy;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header Permissions-Policy;
+        proxy_hide_header Strict-Transport-Security;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy no-referrer always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    }
+# END KnowledgeOps project routes

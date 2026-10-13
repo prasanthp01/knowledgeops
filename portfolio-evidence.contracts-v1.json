@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0",
+  "slug": "knowledgeops",
+  "title": "KnowledgeOps local synthetic peer adoption",
+  "git_revision": "6608958602d1adbef6d95197d5913ccf8a646e17",
+  "status": "TESTED",
+  "environment": "test",
+  "public_route": "/projects/knowledgeops",
+  "deployment_url": null,
+  "last_verified_at": "2026-10-13T16:54:50.729788Z",
+  "simulation": {
+    "mode": "SANDBOX_DETERMINISTIC",
+    "provenance": {
+      "data_origin": "SYNTHETIC",
+      "connector_kind": "MOCK",
+      "app_version": "0.2.1",
+      "fixtures_version": "synthetic-2026-10-13.2",
+      "rules_version": "demo-acl-1",
+      "workflow_version": "retrieval-1",
+      "model_version": "none",
+      "prompt_version": "none",
+      "source_revision": "6608958602d1adbef6d95197d5913ccf8a646e17"
+    },
+    "input_schema_sha256": "863841cbffcc3deb79310b5d3104f32881c1cdbb49c79b54dbc7ad4dcaf1a2d1"
+  },
+  "tests": [
+    {
+      "name": "Complete regression suite and static checks",
+      "status": "PASS",
+      "command": "uv run pytest -q --tb=short; uv run ruff check knowledgeops tests scripts migrations; uv run ruff format --check knowledgeops tests scripts migrations; uv run mypy knowledgeops",
+      "evidence": {
+        "evidence_id": "peer-regressions",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-tests.json",
+        "sha256": "1b6c95cb88f1a0d2bb10cdf3a48a737c5dce5f9b0bad6a96e0de2bbd28e9dc12"
+      },
+      "conditions": "155 passed, zero skipped; 39 additional tests. Isolated PostgreSQL with restricted runtime role. Includes unchanged 30-case citation/abstention regression and 67 vendor file hashes. Two dependency deprecation warnings.",
+      "executed_at": "2026-10-13T16:54:50.729788Z"
+    },
+    {
+      "name": "Real canonical API and durable worker HTTP compatibility",
+      "status": "PASS",
+      "command": "uv run python scripts/check_contracts_http.py --origin http://127.0.0.1:8047 --tokens /private/config/probe-tokens.json --output work/http-recheck.json",
+      "evidence": {
+        "evidence_id": "peer-simulator-http",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-simulator-http.json",
+        "sha256": "e621f217cee53fcfdbbe57cf4e7365e85052618905a184f221eb6a6a261025d3"
+      },
+      "conditions": "89 assertions against real localhost API and separate worker; synthetic database. Polling assertion count varies with worker timing. No production test.",
+      "executed_at": "2026-10-13T16:52:11.249611Z"
+    },
+    {
+      "name": "KnowledgeOps fixed synthetic caller to actual AgentOps",
+      "status": "PASS",
+      "command": "uv run python scripts/check_synthetic_peer.py --profile /private/config/synthetic-agentops.json --agentops-source work/peer-http/agentops-source --output work/agentops-recheck.json",
+      "evidence": {
+        "evidence_id": "knowledgeops-agentops",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-agentops.json",
+        "sha256": "ff359d03903b986c81105a64abcb87a4d92955257d7c7bb2b1ffb1668e91a56d"
+      },
+      "conditions": "Pinned AgentOps 50bb507dafdd2c98d8d008c7307a9235439690dd over localhost; canonical empty-context fixture routes, identical operation reconciles the same decision, provider_calls=0, simulated USD only. Disabled caller returns typed unavailable. No default workflow activation.",
+      "executed_at": "2026-10-13T16:51:55.662918Z"
+    },
+    {
+      "name": "Actual FlowOps PeerClient to KnowledgeOps",
+      "status": "PASS",
+      "command": "FlowOps Python: scripts/check_flowops_knowledge.py --flowops-source work/peer-http/flowops-source --origin http://127.0.0.1:8047 --tokens /private/config/probe-tokens.json --output work/flowops-recheck.json",
+      "evidence": {
+        "evidence_id": "flowops-knowledgeops",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-flowops.json",
+        "sha256": "5af0847dbfb688c07ab4f1401e5842b2360cb0887ce8332c8780a6c96a119f53"
+      },
+      "conditions": "Pinned FlowOps 9e57bd7dfa6dc8eb7f11249b32e77fa70e438945; unpersisted synthetic RUNNING context. January/February exact citations and hashes pass; unknown revision NO_RESULTS, wrong tenant DENIED, missing local scope refused. Not an end-to-end refund workflow.",
+      "executed_at": "2026-10-13T16:52:12.411176Z"
+    }
+  ],
+  "benchmarks": [],
+  "costs": [
+    {
+      "category": "PROVIDER",
+      "cost": {
+        "kind": "NONE",
+        "value": 0,
+        "currency": "EUR",
+        "pricing_version": "no-provider-calls"
+      },
+      "method": "Deterministic extraction and recorded replay make zero provider calls. Infrastructure cost is unmeasured.",
+      "evidence": {
+        "evidence_id": "peer-keyless-provider-calls",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-simulator-http.json",
+        "sha256": "e621f217cee53fcfdbbe57cf4e7365e85052618905a184f221eb6a6a261025d3"
+      }
+    },
+    {
+      "category": "PROVIDER",
+      "cost": {
+        "kind": "SIMULATED",
+        "value": 0.000113,
+        "currency": "USD",
+        "pricing_version": "synthetic-usd-v1"
+      },
+      "method": "One canonical synthetic AgentOps operation, observed twice with the same identity/decision. Modeled USD 0.000113, zero provider calls; simulated ledger value is not actual spend.",
+      "evidence": {
+        "evidence_id": "peer-modeled-route",
+        "origin": "TEST",
+        "reference": "docs/evidence/peer-caller-agentops.json",
+        "sha256": "ff359d03903b986c81105a64abcb87a4d92955257d7c7bb2b1ffb1668e91a56d"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "Canonical API contracts and permission-filtered exact citations",
+      "evidence": [
+        {
+          "evidence_id": "peer-contracts-boundary",
+          "origin": "SOURCE",
+          "reference": "knowledgeops/contracts_api.py",
+          "sha256": "03f2fc0cf41bd4c9c26793f8a3a2e7889cdd99aaeb9b67848394e027680b74cc"
+        },
+        {
+          "evidence_id": "peer-refund-regressions",
+          "origin": "SOURCE",
+          "reference": "tests/test_synthetic_peer.py",
+          "sha256": "786b7cf01c1f722ba18dfbf9441605bf7e1635d30a890797dc2e8869394563ea"
+        }
+      ]
+    },
+    {
+      "name": "Constrained synthetic peer routing with typed unavailable outcomes",
+      "evidence": [
+        {
+          "evidence_id": "peer-synthetic-caller",
+          "origin": "SOURCE",
+          "reference": "knowledgeops/synthetic_peer.py",
+          "sha256": "552c89aa8347e1a01991f32b895304172847652db3aff744ee59f1815d4bb62f"
+        },
+        {
+          "evidence_id": "peer-agentops-http-probe",
+          "origin": "SOURCE",
+          "reference": "scripts/check_synthetic_peer.py",
+          "sha256": "737cd9d831b614a443a71d376700f72f131ce25f28663d992f2dad61209d14ba"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Local component integration only; default workflows are not connected, and production retains the prior API format.",
+    "No new image/scan, frontend adoption, HTTPS/proxy cutover, load benchmark or deployed verification for this source.",
+    "FlowOps uses its actual PeerClient with unpersisted synthetic context; this is not an end-to-end refund or approval workflow.",
+    "KnowledgeOps AgentOps caller is disabled by default and accepts only a fixed empty-context synthetic exercise. Private content and live/paid inference remain unsupported.",
+    "LOW/PUBLIC describe the empty-context fixture only; the existing FlowOps HIGH/context-bearing inference request remains outside AgentOps admission.",
+    "The coordinator check must accept canonical knowledge status OK; its ANSWERED/NO_RESULTS assertion does not cover a positive canonical response.",
+    "Trusted development credentials and fictional demo roles do not establish enterprise SSO or private-data readiness.",
+    "Simulated peer costs are modeled, not billed. Unknown remote outcomes retain no invented usage or cancellation guarantee.",
+    "Original 25 fixture versions and 30 evaluation cases are unchanged; two original fictional refund references add coverage, not refund authority.",
+    "Public source publication, independent review and full ecosystem workflow validation remain pending."
+  ]
+}

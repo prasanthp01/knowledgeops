@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "SearchInput": {
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "maxLength": 500,
+          "minLength": 3,
+          "title": "Question",
+          "type": "string"
+        },
+        "role": {
+          "default": "staff",
+          "enum": [
+            "staff",
+            "engineering",
+            "security",
+            "finance"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "corpus": {
+          "const": "atlas-synthetic",
+          "default": "atlas-synthetic",
+          "title": "Corpus",
+          "type": "string"
+        },
+        "collections": {
+          "items": {
+            "enum": [
+              "people",
+              "operations",
+              "security",
+              "finance"
+            ],
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Collections",
+          "type": "array"
+        },
+        "algorithm": {
+          "default": "bm25",
+          "enum": [
+            "bm25",
+            "keyword"
+          ],
+          "title": "Algorithm",
+          "type": "string"
+        },
+        "top_k": {
+          "default": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Top K",
+          "type": "integer"
+        },
+        "revision": {
+          "default": "current",
+          "enum": [
+            "current",
+            "previous",
+            "conflict"
+          ],
+          "title": "Revision",
+          "type": "string"
+        },
+        "keyword_filter": {
+          "default": "",
+          "maxLength": 80,
+          "title": "Keyword Filter",
+          "type": "string"
+        },
+        "seed": {
+          "default": 42,
+          "maximum": 4294967295,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "question"
+      ],
+      "title": "SearchInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "project_id": {
+      "const": "knowledgeops",
+      "default": "knowledgeops",
+      "title": "Project Id",
+      "type": "string"
+    },
+    "mode": {
+      "default": "SANDBOX_DETERMINISTIC",
+      "enum": [
+        "SANDBOX_DETERMINISTIC",
+        "REPLAY_RECORDED"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "preset_id": {
+      "anyOf": [
+        {
+          "maxLength": 60,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Preset Id"
+    },
+    "input": {
+      "$ref": "#/$defs/SearchInput"
+    },
+    "client_correlation_id": {
+      "anyOf": [
+        {
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Client Correlation Id"
+    },
+    "replay_run_id": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f-]{36}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Replay Run Id"
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "title": "SimulationStart",
+  "type": "object"
+}

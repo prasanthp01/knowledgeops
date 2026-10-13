@@ -1,0 +1,342 @@
+[
+  {
+    "name": "alembic",
+    "version": "1.20.0",
+    "license": "MIT"
+  },
+  {
+    "name": "annotated-doc",
+    "version": "0.0.5",
+    "license": "MIT"
+  },
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "license": "MIT"
+  },
+  {
+    "name": "anyio",
+    "version": "4.15.1",
+    "license": "MIT"
+  },
+  {
+    "name": "attrs",
+    "version": "26.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "boolean.py",
+    "version": "5.0",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "CacheControl",
+    "version": "0.14.4",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "certifi",
+    "version": "2026.7.22",
+    "license": "MPL-2.0"
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "license": "MIT"
+  },
+  {
+    "name": "click",
+    "version": "8.5.0",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "coverage",
+    "version": "7.16.2",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "cyclonedx-python-lib",
+    "version": "11.12.0",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "defusedxml",
+    "version": "0.7.1",
+    "license": "PSFL"
+  },
+  {
+    "name": "fastapi",
+    "version": "0.143.0",
+    "license": "MIT"
+  },
+  {
+    "name": "filelock",
+    "version": "4.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "h11",
+    "version": "0.16.0",
+    "license": "MIT"
+  },
+  {
+    "name": "httpcore",
+    "version": "1.0.9",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "httpx",
+    "version": "0.28.1",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "iniconfig",
+    "version": "2.3.1",
+    "license": "MIT"
+  },
+  {
+    "name": "jsonschema",
+    "version": "4.26.0",
+    "license": "MIT"
+  },
+  {
+    "name": "jsonschema-specifications",
+    "version": "2025.9.1",
+    "license": "MIT"
+  },
+  {
+    "name": "librt",
+    "version": "0.16.0",
+    "license": "MIT"
+  },
+  {
+    "name": "license-expression",
+    "version": "30.4.4",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "Mako",
+    "version": "1.4.3",
+    "license": "MIT"
+  },
+  {
+    "name": "markdown-it-py",
+    "version": "4.2.0",
+    "license": "MIT License"
+  },
+  {
+    "name": "MarkupSafe",
+    "version": "3.0.4",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "mdurl",
+    "version": "0.1.2",
+    "license": "MIT License"
+  },
+  {
+    "name": "msgpack",
+    "version": "1.2.3",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "mypy",
+    "version": "1.20.2",
+    "license": "MIT"
+  },
+  {
+    "name": "mypy_extensions",
+    "version": "1.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "opentelemetry-api",
+    "version": "1.45.1",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "packageurl-python",
+    "version": "0.17.6",
+    "license": "MIT"
+  },
+  {
+    "name": "packaging",
+    "version": "26.3",
+    "license": "Apache-2.0 OR BSD-2-Clause"
+  },
+  {
+    "name": "pathspec",
+    "version": "1.1.1",
+    "license": "Mozilla Public License 2.0 (MPL 2.0)"
+  },
+  {
+    "name": "pip",
+    "version": "26.2.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pip-requirements-parser",
+    "version": "32.0.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pip_api",
+    "version": "0.0.35",
+    "license": "Apache License\n                        Version 2.0, January 2004\n                     https://www.apache.org/licenses/\n\nTERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n1. Definitions.\n\n   \"License\" shall mean the terms and conditions for use, reproduction,\n   and distribution as defined by Sections 1 through 9 of this document.\n\n   \"Licensor\" shall mean the copyright owner or entity authorized by\n   the copyright owner that is granting the License.\n\n   \"Legal Entity\" shall mean the"
+  },
+  {
+    "name": "pip_audit",
+    "version": "2.10.1",
+    "license": "Apache Software License"
+  },
+  {
+    "name": "platformdirs",
+    "version": "4.13.0",
+    "license": "MIT"
+  },
+  {
+    "name": "pluggy",
+    "version": "1.6.0",
+    "license": "MIT"
+  },
+  {
+    "name": "psycopg",
+    "version": "3.3.6",
+    "license": "LGPL-3.0-only"
+  },
+  {
+    "name": "psycopg-binary",
+    "version": "3.3.6",
+    "license": "LGPL-3.0-only"
+  },
+  {
+    "name": "psycopg-pool",
+    "version": "3.3.3",
+    "license": "LGPL-3.0-only"
+  },
+  {
+    "name": "py-serializable",
+    "version": "2.1.0",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "pydantic",
+    "version": "2.14.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pydantic-settings",
+    "version": "2.15.0",
+    "license": "MIT"
+  },
+  {
+    "name": "pydantic_core",
+    "version": "2.50.1",
+    "license": "MIT"
+  },
+  {
+    "name": "Pygments",
+    "version": "2.21.0",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "pyparsing",
+    "version": "3.3.3",
+    "license": "MIT"
+  },
+  {
+    "name": "pypdf",
+    "version": "6.20.1",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "pytest",
+    "version": "9.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pytest-cov",
+    "version": "7.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "python-dotenv",
+    "version": "1.2.4",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "referencing",
+    "version": "0.37.0",
+    "license": "MIT"
+  },
+  {
+    "name": "requests",
+    "version": "2.34.2",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "rich",
+    "version": "15.0.0",
+    "license": "MIT"
+  },
+  {
+    "name": "rpds-py",
+    "version": "2026.9.1",
+    "license": "MIT"
+  },
+  {
+    "name": "ruff",
+    "version": "0.17.0",
+    "license": "MIT"
+  },
+  {
+    "name": "sortedcontainers",
+    "version": "2.4.0",
+    "license": "Apache 2.0"
+  },
+  {
+    "name": "SQLAlchemy",
+    "version": "2.1.4",
+    "license": "MIT"
+  },
+  {
+    "name": "starlette",
+    "version": "1.8.0",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "tomli",
+    "version": "2.5.0",
+    "license": "MIT"
+  },
+  {
+    "name": "tomli_w",
+    "version": "1.2.0",
+    "license": "MIT License"
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.4",
+    "license": "MIT"
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license": "PSF-2.0"
+  },
+  {
+    "name": "urllib3",
+    "version": "2.8.0",
+    "license": "MIT"
+  },
+  {
+    "name": "uvicorn",
+    "version": "0.54.0",
+    "license": "BSD-3-Clause"
+  }
+]

@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0",
+  "slug": "knowledgeops",
+  "title": "KnowledgeOps",
+  "git_revision": "9600824efbc106d058616bc607a5d923739bf017",
+  "status": "DEPLOYED",
+  "public_route": "https://portfolio.gappazappa.in/projects/knowledgeops",
+  "simulation": {
+    "mode": "SANDBOX_DETERMINISTIC",
+    "fixtures_version": "synthetic-2026-10-13.1"
+  },
+  "tests": [
+    {
+      "name": "automated_suite",
+      "status": "PASS",
+      "passed": 59,
+      "statement_coverage_percent": 81.45,
+      "environment": "local"
+    },
+    {
+      "name": "retrieval_evaluation",
+      "status": "PASS",
+      "question_count": 30,
+      "relevant_question_count": 22,
+      "recall_at_k_percent": 100.0,
+      "precision_at_k_percent": 89.39,
+      "citation_validity_percent": 100.0,
+      "abstention_correct": 9,
+      "abstention_total": 9,
+      "dataset_sha256": "651161ffd9ded0c5703d7488e3c38c1c601f10a45d324bf173b9bdef2de93a86",
+      "top_k": 3,
+      "method": "Hand-authored synthetic questions held out from search corpus and runtime prompts. Same author as corpus; not an independent enterprise benchmark.",
+      "environment": "local"
+    },
+    {
+      "name": "browser_journeys",
+      "status": "PASS",
+      "journeys": 9,
+      "viewports": [
+        320,
+        375,
+        430,
+        768,
+        1280,
+        1440
+      ],
+      "environment": "local"
+    },
+    {
+      "name": "restart_restore_and_fresh_install",
+      "status": "PASS",
+      "environment": "local"
+    },
+    {
+      "name": "python_dependencies_and_container_scan",
+      "status": "PASS",
+      "scope": "No reported Python dependency vulnerabilities; zero HIGH/CRITICAL container findings in recorded scans. Not a security guarantee.",
+      "environment": "local"
+    },
+    {
+      "name": "public_https_api",
+      "status": "PASS",
+      "environment": "public-https",
+      "case_count": 6,
+      "checks": [
+        "readiness and secure scoped session",
+        "six current/historical/conflict/permission/missing-evidence cases",
+        "ordered durable events",
+        "idempotent admission",
+        "SSE and resume cursor",
+        "CSRF and Origin rejection",
+        "input validation without sensitive-field echo",
+        "public paid inference refused",
+        "cross-session result denied",
+        "page trailing slash assets and CSP"
+      ]
+    },
+    {
+      "name": "public_browser",
+      "status": "PASS",
+      "environment": "public-https",
+      "journey_count": 9,
+      "viewports": [
+        320,
+        375,
+        390,
+        430,
+        768,
+        1024,
+        1280,
+        1440,
+        1920
+      ],
+      "page_errors": 0
+    },
+    {
+      "name": "vps_restart_and_restore",
+      "status": "PASS",
+      "environment": "production-host",
+      "details": "Six completed runs persisted across API/worker/database restart. Separate restore matched 25 documents and 46 chunks and returned a cited answer."
+    },
+    {
+      "name": "exact_deployed_image_scans",
+      "status": "PASS",
+      "environment": "linux-amd64",
+      "known_vulnerabilities_all_severities": 0,
+      "limitation": "Trivy 0.73 and recorded advisory data; Alpine 3.24 EOL lookup warning; not proof against unknown vulnerabilities."
+    },
+    {
+      "name": "independent_review",
+      "status": "NOT_TESTED"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "retrieval_local",
+      "sample_count": 400,
+      "concurrency": 4,
+      "p50_ms": 1.036,
+      "p95_ms": 1.797,
+      "duration_seconds": 0.112,
+      "throughput_per_second": 3583.16,
+      "warmup_requests": 20,
+      "errors": 0,
+      "cpu_seconds": 0.14,
+      "peak_driver_rss_mib": 50.19,
+      "host": {
+        "os": "Darwin",
+        "architecture": "arm64",
+        "logical_cpus": 10
+      },
+      "scope": "Local PostgreSQL connection acquisition + permission-filtered retrieval + Python ranking. Excludes HTTP and queue; not sustained VPS capacity."
+    },
+    {
+      "name": "http_workflow_local",
+      "status": "PASS",
+      "verified_at": "2026-10-13T13:05:40.334086+00:00",
+      "sample_count": 32,
+      "concurrency": 4,
+      "warmup_requests": 0,
+      "errors": 0,
+      "p50_ms": 203.88,
+      "p95_ms": 241.62,
+      "duration_seconds": 1.773,
+      "throughput_per_second": 18.05,
+      "scope": "Local HTTP submission through durable queue to successful cited result, including 50ms polling granularity; 4 sessions x 8 runs; not sustainable VPS capacity.",
+      "provider_calls": 0
+    }
+  ],
+  "costs": [
+    {
+      "kind": "ACTUAL",
+      "value": 0,
+      "currency": "EUR",
+      "scope": "external_llm_spend",
+      "provider_calls": 0
+    },
+    {
+      "kind": "UNMEASURED",
+      "scope": "hosting allocation, ingestion CPU cost and per-query infrastructure cost"
+    }
+  ],
+  "last_verified_at": "2026-10-13T15:04:20.509581+00:00",
+  "limits": [
+    "Original synthetic corpus and same-author evaluation; no enterprise workload validation",
+    "Live AgentOps content inference remains unsupported and disabled",
+    "Published latency probes were local, not a sustained VPS capacity test",
+    "Independent review, screen-reader audit, remote CI and public repository publication not performed",
+    "Backups are verified on-host; no new off-host backup schedule or external monitoring configured"
+  ],
+  "environment": "public-https",
+  "verified_deployment_url": "https://portfolio.gappazappa.in/projects/knowledgeops"
+}

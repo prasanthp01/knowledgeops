@@ -1,0 +1,612 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "KnowledgeOps",
+    "version": "0.2.1"
+  },
+  "paths": {
+    "/api/projects/knowledgeops/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_projects_knowledgeops_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_api_projects_knowledgeops_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/session": {
+      "post": {
+        "summary": "Create Session",
+        "operationId": "create_session_api_projects_knowledgeops_session_post",
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulation/schema": {
+      "get": {
+        "summary": "Schema",
+        "operationId": "schema_api_projects_knowledgeops_simulation_schema_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulation/presets": {
+      "get": {
+        "summary": "Presets",
+        "operationId": "presets_api_projects_knowledgeops_simulation_presets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulations": {
+      "post": {
+        "summary": "Start",
+        "operationId": "start_api_projects_knowledgeops_simulations_post",
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 80,
+              "pattern": "^[a-zA-Z0-9_-]+$",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationStart"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulations/{run_id}": {
+      "get": {
+        "summary": "Read Run",
+        "operationId": "read_run_api_projects_knowledgeops_simulations__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulations/{run_id}/result": {
+      "get": {
+        "summary": "Result",
+        "operationId": "result_api_projects_knowledgeops_simulations__run_id__result_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulations/{run_id}/cancel": {
+      "post": {
+        "summary": "Cancel",
+        "operationId": "cancel_api_projects_knowledgeops_simulations__run_id__cancel_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/simulations/{run_id}/events": {
+      "get": {
+        "summary": "Events",
+        "operationId": "events_api_projects_knowledgeops_simulations__run_id__events_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 10000,
+              "minimum": 0,
+              "default": 0,
+              "title": "After"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(sse|json)$",
+              "default": "sse",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/knowledgeops/private/answers": {
+      "post": {
+        "summary": "Private Answer",
+        "operationId": "private_answer_api_projects_knowledgeops_private_answers_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivateInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "PrivateInput": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Question"
+          },
+          "collections": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "people",
+                "operations",
+                "security",
+                "finance"
+              ]
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Collections"
+          },
+          "operation_id": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 16,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "title": "Operation Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question",
+          "operation_id"
+        ],
+        "title": "PrivateInput"
+      },
+      "SearchInput": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Question"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "staff",
+              "engineering",
+              "security",
+              "finance"
+            ],
+            "title": "Role",
+            "default": "staff"
+          },
+          "corpus": {
+            "type": "string",
+            "const": "atlas-synthetic",
+            "title": "Corpus",
+            "default": "atlas-synthetic"
+          },
+          "collections": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "people",
+                "operations",
+                "security",
+                "finance"
+              ]
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Collections"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "bm25",
+              "keyword"
+            ],
+            "title": "Algorithm",
+            "default": "bm25"
+          },
+          "top_k": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Top K",
+            "default": 3
+          },
+          "revision": {
+            "type": "string",
+            "enum": [
+              "current",
+              "previous",
+              "conflict"
+            ],
+            "title": "Revision",
+            "default": "current"
+          },
+          "keyword_filter": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Keyword Filter",
+            "default": ""
+          },
+          "seed": {
+            "type": "integer",
+            "maximum": 4294967295.0,
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 42
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "SearchInput"
+      },
+      "SimulationStart": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "project_id": {
+            "type": "string",
+            "const": "knowledgeops",
+            "title": "Project Id",
+            "default": "knowledgeops"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "SANDBOX_DETERMINISTIC",
+              "REPLAY_RECORDED"
+            ],
+            "title": "Mode",
+            "default": "SANDBOX_DETERMINISTIC"
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id"
+          },
+          "input": {
+            "$ref": "#/components/schemas/SearchInput"
+          },
+          "client_correlation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80,
+                "pattern": "^[a-zA-Z0-9_-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Correlation Id"
+          },
+          "replay_run_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f-]{36}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replay Run Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "SimulationStart"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# Session 06 integration fragment; merge only after staging and owner routing approval.
+# This service preserves its prefixes. Do not use handle_path to strip them.
+handle /api/projects/knowledgeops/* {
+    reverse_proxy 127.0.0.1:8045 {
+        flush_interval -1
+    }
+}
+handle /projects/knowledgeops* {
+    reverse_proxy 127.0.0.1:8045
+}
+# Set KO_PUBLIC_ORIGIN=https://demo.example.com and KO_SECURE_COOKIES=true.
+# The existing root, other apps and certificates are owned by integration, not this repository.
+
