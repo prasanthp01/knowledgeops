@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-10-13T19:28:04.599943+00:00",
+  "implementation_commit": "41b9d73acc681d6d4cf3443454a4e44e5f1eb28d",
+  "scope": "single-host synthetic self-hosted release",
+  "tests": {
+    "tests": 156,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "hosted_ci": "https://github.com/prasanthp01/knowledgeops/actions/runs/38454233253",
+  "security": {
+    "high_critical_image_vulnerabilities": 0,
+    "source_secret_findings": 0,
+    "docker_misconfiguration_findings": 0,
+    "private_vulnerability_reporting": true
+  },
+  "runtime": {
+    "image_id": "sha256:f7cc15a5c28d5967f90b4918636227d43af07cffbd3015624b97a7d025d51d20",
+    "user": "10001:10001",
+    "read_only": true,
+    "cap_drop": [
+      "ALL"
+    ],
+    "memory_bytes": 134217728,
+    "health": "healthy"
+  },
+  "browser": {
+    "mobile_viewport_width": 390,
+    "mobile_overflow": false,
+    "desktop_review": false,
+    "scope": "keyless scenario smoke; not physical-device or full accessibility certification",
+    "observed_scenarios": [
+      "Policy search returned exact citation",
+      "Restricted-access search abstained without document leakage"
+    ]
+  },
+  "not_validated": [
+    "Live paid-provider execution",
+    "Enterprise identity and tenancy",
+    "Commercial workload or production SLA",
+    "Independent penetration testing"
+  ],
+  "restore": {
+    "restored": true,
+    "tables": 12,
+    "data_sha256": "8a50d061ad839beabbd7a455f8b7420cfbc2f50202fe44f615b06d4a6866d596",
+    "scope": "fresh isolated release database",
+    "existing_data_modified": false
+  }
+}

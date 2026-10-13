@@ -45,6 +45,8 @@ jobs:
           git diff --exit-code schemas
       - name: Test
         run: uv run pytest -q --junitxml=docs/evidence/ci-pytest.xml
+      - name: Source hygiene
+        run: uv run python scripts/check_source.py
       - name: Dependency vulnerability audit
         run: uv run pip-audit --disable-pip --no-deps -r requirements.lock
       - name: Container build
